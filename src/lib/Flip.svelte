@@ -121,24 +121,26 @@
 
 	function save() {
 		event('save', canvas.toDataURL(), { cancelable: true });
+		clearCanvas();
 	}
 </script>
 
-<div>
-	<div class="ctrls">
-		<button on:click={() => save()}>save</button>
-		<button on:click={() => undo()}>undo</button>
-		<button on:click={() => clearCanvas()}>clear</button>
+<div style="display:flex;">
+	<div style="position: relative">
+		<div class="ctrls" style="z-index: {drawing ? -1 : 2}">
+			<button on:click={() => save()}>save</button>
+			<button on:click={() => undo()}>undo</button>
+			<button on:click={() => clearCanvas()}>clear</button>
+		</div>
+		<canvas style="" bind:this={canvas} width={w} height={h}> </canvas>
 	</div>
-	<canvas style="border:solid; margin-top:20px" bind:this={canvas} width={w} height={h}> </canvas>
 </div>
 
 <style>
 	.ctrls {
 		position: absolute;
-		right: 10px;
+		right:0; 
 		opacity: 0.2;
-		z-index: 99;
 	}
 	.ctrls:hover {
 		opacity: 1;
